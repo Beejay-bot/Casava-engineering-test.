@@ -1,0 +1,11 @@
+.forgotPassword{
+    margin-top: 10px;
+    width: 100%;
+    font-size: 12px !important;
+    text-align: center;
+}
+
+.signText{
+    color: blue;
+    margin-left: 5px;
+}

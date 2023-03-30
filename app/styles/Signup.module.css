@@ -1,0 +1,13 @@
+.loginContainer{
+    font-size: 12px !important;
+    text-align: center;
+}
+
+.formContainer{
+    width: 300px;
+}
+
+.loginText{
+    color: blue;
+    margin-left: 5px;
+}
