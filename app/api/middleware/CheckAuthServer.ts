@@ -1,5 +1,6 @@
 import { GetPublicKeyOrSecret, verify } from 'jsonwebtoken'
 
+//  Before accessing the api route we are validating the access token with the verify function.
 const checkAuth = (handler: (arg0: any, arg1: any) => any) => {
     return async (req: { headers: { [x: string]: any } }, res: { status: (arg0: number) => { (): any; new(): any; send: { (): void; new(): any } } }) => {
         try {

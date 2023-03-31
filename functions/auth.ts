@@ -1,4 +1,4 @@
-import {sign} from 'jsonwebtoken'
+import {Secret, sign} from 'jsonwebtoken'
 import cookie from 'cookie'
 import { User } from '@prisma/client'
 
@@ -6,19 +6,22 @@ export const refreshToken = () => {
     return fetch('/api/refresh_token', {
         method: "POST",
         credentials: "include"
-    }).then(res => res.json())
+    }).then(res => {
+        console.log(JSON.s(res))
+        res.json()
+    })
     .then(data => {return data})
 }
 
 export const createAccessToken = (user: { email: string; username: string; id: number } | null) => {
-    return sign({ userId: user?.id }, process.env.ACCESS_TOKEN_SECRET, {
+    return sign({ userId: user?.id }, process.env.ACCESS_TOKEN_SECRET as Secret, {
       expiresIn: '15m'
     });
   };
   
   export const createRefreshToken = (user: { email: string; username: string; id: number } | null) => {
     return sign(
-        { userId: user?.id },process.env.REFRESH_TOKEN_SECRET,{
+        { userId: user?.id },process.env.REFRESH_TOKEN_SECRET as Secret,{
             expiresIn: "7d"
         }
     );

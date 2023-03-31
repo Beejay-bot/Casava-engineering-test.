@@ -1,11 +1,10 @@
-import { useStore } from "../store";
 import {useRouter} from 'next/router'
 
 const withAuth = Component => {
-    const Auth = (props) => {
-        const store = useStore()
+    const Auth = (props: any) => {
+        const accessToken = localStorage.getItem('access_token')
         const router = useRouter()
-        if(store.accessToken !== null) {
+        if(accessToken !== null) {
             return (
                 <Component {...props} />
               );
