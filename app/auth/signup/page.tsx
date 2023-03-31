@@ -85,6 +85,7 @@ const SignUp= () => {
         })
       }).then(res => {
         if(res.status === 409) throw new Error('Please use other email')
+        console.log(res)
         return res.json()
       }).then(data => {
         console.log(data)
