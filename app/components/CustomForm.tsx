@@ -45,7 +45,7 @@ const CustomForm= ({formName, onFinish, formFields, form, disabled, onFinishFail
                     {data.type === 'button' ? (
                         <CustomBtn title={data.label} htmlType='submit' disabled={disabled} />
                     ) : (
-                        <CustomInput placeholder={data.placeholder || ''} type={data.type} />
+                        <Input placeholder={data.placeholder || ''} type={data.type} />
                     )}
                 </Form.Item>
             ))}

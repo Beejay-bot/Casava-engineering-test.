@@ -68,11 +68,33 @@ const SignUp= () => {
           ],
       },
     {
-      name: 'loginBtn',
+      name: 'signUpBtn',
       type: 'button',
-      label: 'Login',
+      label: 'Signup',
     },
 ];
+
+    const handleOnfinish = (values: any) => {
+      console.log(values)
+      fetch('/api/signup',{
+        method:'POST',
+        body:JSON.stringify({
+          email: values?.email,
+          username: values?.username,
+          password: values?.password
+        })
+      }).then(res => {
+        if(res.status === 409) throw new Error('Please use other email')
+        return res.json()
+      }).then(data => {
+        console.log(data)
+        localStorage.setItem("access_token", JSON.stringify(data.accessToken))
+        localStorage.setItem('user_data', JSON.stringify(data.user))
+      })
+      .catch(e => {
+        return console.log(e)
+      })
+    }
   return (
     <div>
         <h2>Sign up</h2>
@@ -83,7 +105,7 @@ const SignUp= () => {
                 formName='signUpForm'
                 form={form}
                 disabled={errorOcurred} 
-                onFinish={(values) => console.log(values)} 
+                onFinish={handleOnfinish} 
             />
         </div>
         <p className={styles.loginContainer}>

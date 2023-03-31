@@ -29,10 +29,29 @@ const loginFormItems: IFormfields[] = [
 
 function Login() {
   const [form] = Form.useForm();
+
+  const handleOnfinish = (values: any) => {
+    console.log(values);
+    fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: values?.email,
+        password: values?.password
+      })
+    }).then(res => {
+      // res.json()
+      console.log(res)
+    })
+    .then(data => {
+      console.log(data)
+      localStorage.setItem("access_token", JSON.stringify(data.accessToken))
+      localStorage.setItem('user_data', JSON.stringify(data.user))
+    })
+  }
   return (
     <div>
       <h3>Log in to your account</h3>
-      <CustomForm formName={'Login'} formFields={loginFormItems} form={form} />
+      <CustomForm formName={'Login'} formFields={loginFormItems} form={form} onFinish={handleOnfinish}/>
       <p className={styles.forgotPassword}>
           Don't have an account? 
           <Link href={'/auth/signup'}> 
