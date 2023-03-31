@@ -1,7 +1,7 @@
 import Prisma from '../../../functions/initPrisma'
 import {createAccessToken, createRefreshToken, sendRefreshToken} from '../../../functions/auth';
+import { compare } from 'bcrypt'
 
-const bcrypt = require('bcrypt');
 type IREQUEST = { method: string; body: string };
 type IRESPONSE = { send: (arg0: { user: { id: number; firstName: any; secondName: any; email: string }; 
         accessToken: never }) => void; status: (arg0: number) => { (): any; new(): any; send: { (): void; new(): any } } }
@@ -22,7 +22,7 @@ export default async (req:IREQUEST , res: IRESPONSE ) => {
             email:user?.email
         }
 
-        bcrypt.compare(password, user?.password, function(err: any, result: boolean) {
+        compare(password, user?.password as string, function(err: any, result: boolean) {
             if(result) {
                 const token = createRefreshToken(user)
                 sendRefreshToken(res,token)
